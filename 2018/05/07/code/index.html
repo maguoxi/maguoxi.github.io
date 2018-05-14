@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="talk is cheap,show me code">
+<meta name="description" content="talk is cheap,show me code  面试题总结什么情况使用 weak 关键字，相比 assign 有什么不同？1234567891.在 ARC 中,在有可能出现循环引用的时候,往往要通过让其中一端使用 weak 来解决,比如: delegate 代理属性。2.自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用 weak,自定义 IBOutlet 控件属性一般也使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Keep Coding">
+<meta property="og:title" content="第一篇博客">
 <meta property="og:url" content="http://yoursite.com/2018/05/07/code/index.html">
 <meta property="og:site_name" content="HELLO WORLD!">
-<meta property="og:description" content="talk is cheap,show me code">
+<meta property="og:description" content="talk is cheap,show me code  面试题总结什么情况使用 weak 关键字，相比 assign 有什么不同？1234567891.在 ARC 中,在有可能出现循环引用的时候,往往要通过让其中一端使用 weak 来解决,比如: delegate 代理属性。2.自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用 weak,自定义 IBOutlet 控件属性一般也使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-07T10:19:21.507Z">
+<meta property="og:updated_time" content="2018-05-14T07:41:54.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Keep Coding">
-<meta name="twitter:description" content="talk is cheap,show me code">
+<meta name="twitter:title" content="第一篇博客">
+<meta name="twitter:description" content="talk is cheap,show me code  面试题总结什么情况使用 weak 关键字，相比 assign 有什么不同？1234567891.在 ARC 中,在有可能出现循环引用的时候,往往要通过让其中一端使用 weak 来解决,比如: delegate 代理属性。2.自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用 weak,自定义 IBOutlet 控件属性一般也使用">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>Keep Coding | HELLO WORLD!</title>
+  <title>第一篇博客 | HELLO WORLD!</title>
   
 
 
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Keep Coding</h1>
+          <h1 class="post-title" itemprop="name headline">第一篇博客</h1>
         
 
         <div class="post-meta">
@@ -302,6 +302,8 @@
         <blockquote>
 <p>talk is cheap,show me code</p>
 </blockquote>
+<h2 id="面试题总结"><a href="#面试题总结" class="headerlink" title="面试题总结"></a>面试题总结</h2><h3 id="什么情况使用-weak-关键字，相比-assign-有什么不同？"><a href="#什么情况使用-weak-关键字，相比-assign-有什么不同？" class="headerlink" title="什么情况使用 weak 关键字，相比 assign 有什么不同？"></a>什么情况使用 weak 关键字，相比 assign 有什么不同？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.在 ARC 中,在有可能出现循环引用的时候,往往要通过让其中一端使用 weak 来解决,比如: delegate 代理属性。</span><br><span class="line">2.自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用 weak,自定义 IBOutlet 控件属性一般也使用 weak；当然，也可以使用strong。</span><br><span class="line"></span><br><span class="line">IBOutlet连出来的视图属性为什么可以被设置成weak?</span><br><span class="line">因为父控件的subViews数组已经对它有一个强引用。</span><br><span class="line"></span><br><span class="line">不同点：</span><br><span class="line">assign 可以用非 OC 对象，而 weak 必须用于 OC 对象。</span><br><span class="line">weak 表明该属性定义了一种“非拥有关系”。在属性所指的对象销毁时，属性值会自动清空(nil)。</span><br></pre></td></tr></table></figure>
+<h3 id="Runtime实现的机制是什么，怎么用，一般用于干嘛？"><a href="#Runtime实现的机制是什么，怎么用，一般用于干嘛？" class="headerlink" title="Runtime实现的机制是什么，怎么用，一般用于干嘛？"></a>Runtime实现的机制是什么，怎么用，一般用于干嘛？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1). 使用时需要导入的头文件 &lt;objc/message.h&gt; &lt;objc/runtime.h&gt;</span><br><span class="line">2). Runtime 运行时机制，它是一套C语言库。</span><br><span class="line">3). 实际上我们编写的所有OC代码，最终都是转成了runtime库的东西。</span><br><span class="line">比如：</span><br><span class="line">类转成了 Runtime 库里面的结构体等数据类型，</span><br><span class="line">方法转成了 Runtime 库里面的C语言函数，</span><br><span class="line">平时调方法都是转成了 objc_msgSend 函数（所以说OC有个消息发送机制）</span><br><span class="line">// OC是动态语言，每个方法在运行时会被动态转为消息发送，即：objc_msgSend(receiver, selector)。</span><br><span class="line">// [stu show];  在objc动态编译时，会被转意为：objc_msgSend(stu, @selector(show));    </span><br><span class="line">4). 因此，可以说 Runtime 是OC的底层实现，是OC的幕后执行者。</span><br><span class="line"></span><br><span class="line">有了Runtime库，能做什么事情呢？</span><br><span class="line">Runtime库里面包含了跟类、成员变量、方法相关的API。</span><br><span class="line">比如：</span><br><span class="line">（1）获取类里面的所有成员变量。</span><br><span class="line">（2）为类动态添加成员变量。</span><br><span class="line">（3）动态改变类的方法实现。</span><br><span class="line">（4）为类动态添加新的方法等。</span><br><span class="line">因此，有了Runtime，想怎么改就怎么改。</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -386,8 +388,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -402,7 +413,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -429,6 +440,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题总结"><span class="nav-number">1.</span> <span class="nav-text">面试题总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么情况使用-weak-关键字，相比-assign-有什么不同？"><span class="nav-number">1.1.</span> <span class="nav-text">什么情况使用 weak 关键字，相比 assign 有什么不同？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Runtime实现的机制是什么，怎么用，一般用于干嘛？"><span class="nav-number">1.2.</span> <span class="nav-text">Runtime实现的机制是什么，怎么用，一般用于干嘛？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
